@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  title: API for gene-list transformers
+  title: API for remove-gene filter
   version: 1.1.0
-  description: API for gene-list transformers.
+  description: API for remove-gene filter.
 host: sharpener.ncats.io
-basePath: /<transformer-path>
+basePath: /remove_genes_filter
 schemes:
 - "https"
 
