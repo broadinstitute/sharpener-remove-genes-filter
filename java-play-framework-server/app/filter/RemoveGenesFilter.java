@@ -15,7 +15,7 @@ public class RemoveGenesFilter {
 
 	private static final String GENE_SYMBOL = "gene_symbol";
 	private static final String TRANSFORMER_NAME = "Remove genes";
-	private static final String REMOVE_GENES = "remove_genes";
+	private static final String REMOVE_GENES = "gene symbols";
 
 
 	public static TransformerInfo transformerInfo() {
