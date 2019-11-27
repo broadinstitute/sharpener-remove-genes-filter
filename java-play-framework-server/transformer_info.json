@@ -1,0 +1,28 @@
+{
+    "name": "Remove genes by gene symbol",
+    "label": "Remove genes",
+    "version": "1.3.0",
+    "function": "filter",
+    "description": "Gene-list filter to remove genes matching list of named Gene Symbol values.",
+    "properties": {
+        "list_predicate": "superset",
+        "member_predicate": null,
+        "source_url": null,
+        "method": null
+    },
+    "parameters": [
+        {
+            "default": null,
+            "name": "gene symbol(s)",
+            "type": "string",
+            "biolink_class": null,
+            "allowed_values": null,
+            "allowed_range": null,
+            "suggested_values": null,
+            "lookup_url": null
+        }
+    ],
+    "required_attributes": [
+        "gene_symbol"
+    ]
+}
