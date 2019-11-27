@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+
 import apimodels.Attribute;
 import apimodels.GeneInfo;
-import apimodels.Parameter;
 import apimodels.Property;
 import apimodels.TransformerInfo;
 import apimodels.TransformerQuery;
@@ -14,17 +21,26 @@ import apimodels.TransformerQuery;
 public class RemoveGenesFilter {
 
 	private static final String GENE_SYMBOL = "gene_symbol";
-	private static final String TRANSFORMER_NAME = "Remove genes";
-	private static final String REMOVE_GENES = "gene symbols";
+	private static String REMOVE_GENES = "gene symbols";
+
+	private static ObjectMapper mapper = new ObjectMapper();
+
+	static {
+		mapper.setSerializationInclusion(Include.NON_NULL);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	}
 
 
 	public static TransformerInfo transformerInfo() {
-		TransformerInfo transformerInfo = new TransformerInfo().name(TRANSFORMER_NAME);
-		transformerInfo.function(TransformerInfo.FunctionEnum.FILTER);
-		transformerInfo.description("Remove-genes filter");
-		transformerInfo.addParametersItem(new Parameter().name(REMOVE_GENES).type(Parameter.TypeEnum.STRING));
-		transformerInfo.addRequiredAttributesItem(GENE_SYMBOL);
-		return transformerInfo;
+		try {
+			String json = new String(Files.readAllBytes(Paths.get("transformer_info.json")));
+			TransformerInfo info = mapper.readValue(json, TransformerInfo.class);
+			REMOVE_GENES = info.getParameters().get(0).getName();
+			return info;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 
